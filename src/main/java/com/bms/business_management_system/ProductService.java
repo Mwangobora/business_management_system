@@ -31,4 +31,24 @@ public class ProductService {
     {
         return  productRepository.findById(id);
     }
+
+    public Optional<Product> updateProduct(Long id, Product updatedProduct)
+    {
+       Optional<Product> product = productRepository.findById(id);
+
+       
+       if(product.isEmpty())
+          return  Optional.empty();
+        
+        Product existingProduct = product.get();
+
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setQuantity(updatedProduct.getQuantity());
+
+        Product savedProduct = productRepository.save(existingProduct);
+
+        return Optional.of(savedProduct);
+        
+    }
 }

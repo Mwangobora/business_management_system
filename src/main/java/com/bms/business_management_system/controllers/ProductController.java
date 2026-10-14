@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +50,20 @@ import com.bms.business_management_system.models.Product;
         {
             Product productSaved = productService.createProduct(product);
             return  ResponseEntity.status(HttpStatus.CREATED).body(productSaved);
+        }
+
+        @PutMapping("/products/{id}")
+        public ResponseEntity<Product> updateProduct(@PathVariable Long id, 
+                                                     @RequestBody Product updatedProduct)
+        {
+           Optional<Product> product = productService.updateProduct(id, updatedProduct);
+
+           if(product.isPresent()){
+            return ResponseEntity.ok().body(product.get());
+           }
+           else{    
+            return  ResponseEntity.notFound().build();
+           }
         }
         
         
