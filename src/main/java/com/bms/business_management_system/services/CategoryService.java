@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bms.business_management_system.models.Category;
+import com.bms.business_management_system.models.Product;
 import com.bms.business_management_system.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,11 @@ public class CategoryService {
     public Optional<Category> getCategoryById(Long id)
     {
         return  categoryRepository.findById(id);
-    }  
+    }
+
+    public Category createCategory(Category category)
+    {
+        return categoryRepository.save(category);
+    }
     
 }

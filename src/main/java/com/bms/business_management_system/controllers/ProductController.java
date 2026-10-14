@@ -20,13 +20,10 @@ import com.bms.business_management_system.models.Product;
     @RestController 
     @RequestMapping("/api")
     public class ProductController {
-
-        private final ProductService productService_1;
         private final  ProductService productService;
 
-        public ProductController(ProductService productService, ProductService productService_1) {
+        public ProductController(ProductService productService) {
             this.productService = productService;
-            this.productService_1 = productService_1;
         }
 
         @GetMapping("/products/{id}")
