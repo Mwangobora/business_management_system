@@ -1,4 +1,7 @@
 package com.bms.business_management_system.repositories;
 
-public interface SupplierRepository {
+import com.bms.business_management_system.models.Supplier;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SupplierRepository extends JpaRepository<Supplier,Long> {
 }
