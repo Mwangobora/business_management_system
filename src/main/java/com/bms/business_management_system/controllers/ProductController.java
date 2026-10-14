@@ -2,6 +2,8 @@ package com.bms.business_management_system.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +30,10 @@ import com.bms.business_management_system.models.Product;
         }
 
         @PostMapping("/products")
-        public Product createProduct(@RequestBody  Product product)
+        public ResponseEntity<Product> createProduct(@RequestBody  Product product)
         {
-            return  productService.createProduct(product);
+            Product productSaved = productService.createProduct(product);
+            return  ResponseEntity.status(HttpStatus.CREATED).body(productSaved);
         }
         
         
