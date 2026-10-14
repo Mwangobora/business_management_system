@@ -1,5 +1,6 @@
 package com.bms.business_management_system;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,10 @@ public class ProductService {
     public Product createProduct(Product product)
     {
         return productRepository.save(product);
+    }
+
+    public Optional<Product> getProductById(Long id)
+    {
+        return  productRepository.findById(id);
     }
 }

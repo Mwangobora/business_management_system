@@ -1,10 +1,12 @@
 package com.bms.business_management_system.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,19 @@ import com.bms.business_management_system.models.Product;
 
         public ProductController(ProductService productService) {
             this.productService = productService;
+        }
+
+        @GetMapping("/products/{id}")
+        public ResponseEntity<Product> getProductById(@PathVariable Long id)
+        {
+           Optional<Product> product = productService.getProductById(id);
+
+           if(product.isPresent())
+             return ResponseEntity.ok(product.get());
+         
+           else
+             return ResponseEntity.notFound().build();
+           
         }
         
         @GetMapping("/products")
