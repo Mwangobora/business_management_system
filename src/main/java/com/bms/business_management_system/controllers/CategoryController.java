@@ -3,7 +3,6 @@ package com.bms.business_management_system.controllers;
 import com.bms.business_management_system.models.Category;
 import com.bms.business_management_system.services.CategoryService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +40,25 @@ public class CategoryController {
     {
         Category categorySave = categoryService.createCategory(category);
         return  ResponseEntity.status(HttpStatus.CREATED).body(categorySave);
+    }
+
+    @PutMapping("/categories/{id}")
+    public  ResponseEntity<Category> updateCategory(@PathVariable Long id,
+                                                    @RequestBody Category updatedCategories)
+    {
+        Optional<Category> category = categoryService.updateCategory(id,updatedCategories);
+        if(category.isPresent())
+            return  ResponseEntity.ok().body(category.get());
+        else
+         return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("categories/{id}")
+    public  ResponseEntity<Void> deleteCategory(@PathVariable Long id)
+    {
+        if(categoryService.deleteCategory(id))
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
     }
 
 }
