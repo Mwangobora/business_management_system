@@ -51,4 +51,15 @@ public class ProductService {
         return Optional.of(savedProduct);
         
     }
+
+    public boolean deleteProduct(Long id)
+    {
+        if(productRepository.existsById(id))
+        {
+            productRepository.deleteById(id);
+            return true;
+        }
+
+        return  false;
+    }
 }

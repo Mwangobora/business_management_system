@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,12 @@ import com.bms.business_management_system.models.Product;
     @RequestMapping("/api")
     public class ProductController {
 
+        private final ProductService productService_1;
         private final  ProductService productService;
 
-        public ProductController(ProductService productService) {
+        public ProductController(ProductService productService, ProductService productService_1) {
             this.productService = productService;
+            this.productService_1 = productService_1;
         }
 
         @GetMapping("/products/{id}")
@@ -64,6 +67,17 @@ import com.bms.business_management_system.models.Product;
            else{    
             return  ResponseEntity.notFound().build();
            }
+        }
+
+        @DeleteMapping("/products/{id}")
+        public  ResponseEntity<Void> deleteProduct(@PathVariable Long id)
+        {
+            if(productService.deleteProduct(id))
+            {
+                return  ResponseEntity.noContent().build();
+            }
+
+            return ResponseEntity.notFound().build();
         }
         
         
