@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bms.business_management_system.ProductService;
+import com.bms.business_management_system.services.ProductService;
 import com.bms.business_management_system.models.Product;
 
     @RestController 

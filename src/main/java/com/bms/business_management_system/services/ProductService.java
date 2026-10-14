@@ -1,4 +1,4 @@
-package com.bms.business_management_system;
+package com.bms.business_management_system.services;
 import java.util.List;
 import java.util.Optional;
 
