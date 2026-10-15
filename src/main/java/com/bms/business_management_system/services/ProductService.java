@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.bms.business_management_system.dto.ProductRequests;
 import com.bms.business_management_system.models.Product;
 import com.bms.business_management_system.repositories.ProductRepository;
 
@@ -24,6 +25,16 @@ public class ProductService {
 
     public Product createProduct(Product product)
     {
+        return productRepository.save(product);
+    }
+
+    public Product createProduct(ProductRequests request)
+    {
+        Product product = new Product();
+        product.setName(request.getName()); 
+        product.setPrice(request.getPrice());
+        product.setQuantity(request.getQuantity());
+
         return productRepository.save(product);
     }
 

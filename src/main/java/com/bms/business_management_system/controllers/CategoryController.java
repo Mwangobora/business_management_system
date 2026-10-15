@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class CategoryController {
+public class  CategoryController {
 
     private final CategoryService categoryService;
 
