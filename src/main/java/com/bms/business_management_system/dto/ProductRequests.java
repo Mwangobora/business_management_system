@@ -13,10 +13,10 @@ public class ProductRequests {
     private String name;
 
     @NotNull(message = "Price is required , please add it")
-    @Positive(message = "Price should be positive")
+    @Positive(message = "Price should be positive. ")
     private BigDecimal price;
 
-    @NotNull(message = "Quantity cannot be negative")
+    @NotNull(message = "Quantity cannot be null. It is required")
     @PositiveOrZero(message = "only positive or zero quantity is accepted")
     private Integer quantity;
 
