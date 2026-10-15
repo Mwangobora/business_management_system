@@ -25,21 +25,40 @@ public class SupplierController {
         return  supplierService.getAllSupplier();
     }
 
-    @GetMapping("/supplier/{id}")
+    @GetMapping("/suppliers/{id}")
     public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id)
     {
         Optional<Supplier> supplier = supplierService.getSupplierById(id);
 
         if(supplier.isPresent())
-            ResponseEntity.ok().body(supplier);
+            return  ResponseEntity.ok(supplier.get());
         return  ResponseEntity.notFound().build();
     }
 
     @PostMapping("/suppliers")
-    public ResponseEntity<Supplier> createSupplier(Supplier supplier)
+    public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier supplier)
     {
         Supplier savedSupplier = supplierService.createSupplier(supplier);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSupplier);
+    }
+
+    @PutMapping("/suppliers/{id}")
+    public Optional<Supplier> updateSupplier(@PathVariable Long id,
+                                             @RequestBody Supplier updatedSupplier)
+    {
+        Optional<Supplier> supplier = supplierService.updateSupplier(id,updatedSupplier);
+        if(supplier.isEmpty())
+            return Optional.empty();
+        return ResponseEntity.ok().body(supplier).getBody();
+
+    }
+
+    @DeleteMapping("/suppliers/{id}")
+    public ResponseEntity<String> deleteSupplier(@PathVariable Long id)
+    {
+        if(supplierService.deleteSupplier(id))
+           return ResponseEntity.ok().body("Deleted successifully");
+        return ResponseEntity.notFound().build();
     }
 
 
