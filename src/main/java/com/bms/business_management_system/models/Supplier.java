@@ -2,7 +2,6 @@ package com.bms.business_management_system.models;
 
 import jakarta.persistence.*;
 
-import java.sql.Struct;
 
 @Entity
 @Table(name = "suppliers")
