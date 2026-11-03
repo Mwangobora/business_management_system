@@ -19,15 +19,6 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public  List<Product> getAllProducts()
-    {
-        return  productRepository.findAll();
-    }
-
-    public Product createProduct(Product product)
-    {
-        return productRepository.save(product);
-    }
     public ProductResponse toResponse(Product product)
     {
         ProductResponse response = new ProductResponse();
@@ -38,6 +29,15 @@ public class ProductService {
 
         return  response;
     }
+
+    public  List<ProductResponse> getAllProducts()
+    {
+        return  productRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
 
     public ProductResponse createProduct(ProductRequests request)
     {

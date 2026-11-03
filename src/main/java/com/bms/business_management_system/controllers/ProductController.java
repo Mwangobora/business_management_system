@@ -43,9 +43,11 @@ import com.bms.business_management_system.models.Product;
         }
         
         @GetMapping("/products")
-        public List<Product> getAllProducts()
+        public ResponseEntity <List<ProductResponse>> getAllProducts()
         {
-        return  productService.getAllProducts();
+
+            List<ProductResponse> products =  productService.getAllProducts();
+            return ResponseEntity.ok().body(products);
         }
 
         @PostMapping("/products")
