@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.bms.business_management_system.dto.ProductRequests;
+import com.bms.business_management_system.dto.ProductResponse;
 import com.bms.business_management_system.models.Product;
 import com.bms.business_management_system.repositories.ProductRepository;
 
@@ -27,15 +28,26 @@ public class ProductService {
     {
         return productRepository.save(product);
     }
+    public ProductResponse toResponse(Product product)
+    {
+        ProductResponse response = new ProductResponse();
+        response.setId(product.getId());
+        response.setName(product.getName());
+        response.setPrice(product.getPrice());
+        response.setQuantity(product.getQuantity());
 
-    public Product createProduct(ProductRequests request)
+        return  response;
+    }
+
+    public ProductResponse createProduct(ProductRequests request)
     {
         Product product = new Product();
         product.setName(request.getName()); 
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity());
 
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        return toResponse(savedProduct);
     }
 
     public Optional<Product> getProductById(Long id)

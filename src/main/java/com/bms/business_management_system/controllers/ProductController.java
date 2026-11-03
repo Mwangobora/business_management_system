@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bms.business_management_system.dto.ProductRequests;
+import com.bms.business_management_system.dto.ProductResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +49,9 @@ import com.bms.business_management_system.models.Product;
         }
 
         @PostMapping("/products")
-        public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductRequests requests)
+        public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequests requests)
         {
-            Product productSaved = productService.createProduct(requests);
+            ProductResponse productSaved = productService.createProduct(requests);
             return  ResponseEntity.status(HttpStatus.CREATED).body(productSaved);
         }
 
