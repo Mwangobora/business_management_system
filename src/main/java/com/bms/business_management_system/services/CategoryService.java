@@ -35,9 +35,9 @@ public class CategoryService {
 
     }
 
-    public Optional<Category> getCategoryById(Long id)
+    public Optional<CategoryResponse> getCategoryById(Long id)
     {
-        return  categoryRepository.findById(id);
+        return  categoryRepository.findById(id).map(this::toResponse);
     }
 
     public CategoryResponse createCategory(CategoryRequests requests)
@@ -50,7 +50,7 @@ public class CategoryService {
         return  toResponse(savedCategory);
     }
 
-    public Optional<Category> updateCategory(Long id, Category updatedCategories)
+    public Optional<CategoryResponse> updateCategory(Long id, Category updatedCategories)
     {
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isEmpty())
@@ -61,7 +61,7 @@ public class CategoryService {
         existingCategory.setDescription(updatedCategories.getDescription());
 
         Category savedCategory = categoryRepository.save(existingCategory);
-        return  Optional.of(savedCategory);
+        return  Optional.of(toResponse(savedCategory));
     }
 
     public boolean deleteCategory(Long id)
