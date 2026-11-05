@@ -3,6 +3,8 @@ package com.bms.business_management_system.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.bms.business_management_system.dto.categories.CategoryRequests;
+import com.bms.business_management_system.dto.categories.CategoryResponse;
 import com.bms.business_management_system.models.Category;
 import com.bms.business_management_system.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,21 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> getAllCategories()
+    public CategoryResponse toResponse(Category category)
     {
-        return categoryRepository.findAll();
+        CategoryResponse response = new CategoryResponse();
+        response.setName(category.getName());
+        response.setDescription(category.getDescription());
+
+        return  response;
+    }
+    public List<CategoryResponse> getAllCategories()
+    {
+        return categoryRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
     }
 
     public Optional<Category> getCategoryById(Long id)
@@ -26,9 +40,14 @@ public class CategoryService {
         return  categoryRepository.findById(id);
     }
 
-    public Category createCategory(Category category)
+    public CategoryResponse createCategory(CategoryRequests requests)
     {
-        return categoryRepository.save(category);
+        Category category = new Category();
+        category.setName(requests.getName());
+        category.setDescription(requests.getDescription());
+
+        Category savedCategory = categoryRepository.save(category);
+        return  toResponse(savedCategory);
     }
 
     public Optional<Category> updateCategory(Long id, Category updatedCategories)
