@@ -50,12 +50,14 @@ public class ProductService {
         return toResponse(savedProduct);
     }
 
-    public Optional<Product> getProductById(Long id)
+    public Optional<ProductResponse> getProductById(Long id)
     {
-        return  productRepository.findById(id);
+
+        return  productRepository.findById(id)
+                .map(this::toResponse);
     }
 
-    public Optional<Product> updateProduct(Long id, Product updatedProduct)
+    public Optional<ProductResponse> updateProduct(Long id, Product request)
     {
        Optional<Product> product = productRepository.findById(id);
 
@@ -65,13 +67,13 @@ public class ProductService {
         
         Product existingProduct = product.get();
 
-        existingProduct.setName(updatedProduct.getName());
-        existingProduct.setPrice(updatedProduct.getPrice());
-        existingProduct.setQuantity(updatedProduct.getQuantity());
+        existingProduct.setName(request.getName());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setQuantity(request.getQuantity());
 
         Product savedProduct = productRepository.save(existingProduct);
 
-        return Optional.of(savedProduct);
+        return Optional.of(toResponse(savedProduct));
         
     }
 

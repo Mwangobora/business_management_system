@@ -30,9 +30,9 @@ import com.bms.business_management_system.models.Product;
         }
 
         @GetMapping("/products/{id}")
-        public ResponseEntity<Product> getProductById(@PathVariable Long id)
+        public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id)
         {
-           Optional<Product> product = productService.getProductById(id);
+           Optional<ProductResponse> product = productService.getProductById(id);
 
            if(product.isPresent())
              return ResponseEntity.ok(product.get());
@@ -58,10 +58,10 @@ import com.bms.business_management_system.models.Product;
         }
 
         @PutMapping("/products/{id}")
-        public ResponseEntity<Product> updateProduct(@PathVariable Long id, 
-                                                     @RequestBody Product updatedProduct)
+        public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,
+                                                     @RequestBody Product request)
         {
-           Optional<Product> product = productService.updateProduct(id, updatedProduct);
+           Optional<ProductResponse> product = productService.updateProduct(id, request);
 
            if(product.isPresent()){
             return ResponseEntity.ok().body(product.get());
