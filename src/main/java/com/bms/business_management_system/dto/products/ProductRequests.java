@@ -1,4 +1,4 @@
-package com.bms.business_management_system.dto;
+package com.bms.business_management_system.dto.products;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

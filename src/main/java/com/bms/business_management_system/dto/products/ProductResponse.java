@@ -1,4 +1,4 @@
-package com.bms.business_management_system.dto;
+package com.bms.business_management_system.dto.products;
 
 import java.math.BigDecimal;
 

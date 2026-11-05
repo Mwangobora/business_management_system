@@ -3,8 +3,8 @@ package com.bms.business_management_system.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import com.bms.business_management_system.dto.ProductRequests;
-import com.bms.business_management_system.dto.ProductResponse;
+import com.bms.business_management_system.dto.products.ProductRequests;
+import com.bms.business_management_system.dto.products.ProductResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

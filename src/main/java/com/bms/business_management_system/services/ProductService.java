@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.bms.business_management_system.dto.ProductRequests;
-import com.bms.business_management_system.dto.ProductResponse;
+import com.bms.business_management_system.dto.products.ProductRequests;
+import com.bms.business_management_system.dto.products.ProductResponse;
 import com.bms.business_management_system.models.Product;
 import com.bms.business_management_system.repositories.ProductRepository;
 
