@@ -20,6 +20,9 @@ public class ProductRequests {
     @PositiveOrZero(message = "only positive or zero quantity is accepted")
     private Integer quantity;
 
+    @NotNull(message = "Category is required")
+    private Long categoryId;
+
     public String getName() {
         return name;
     }
@@ -42,5 +45,13 @@ public class ProductRequests {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

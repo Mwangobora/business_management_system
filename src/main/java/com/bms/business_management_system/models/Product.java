@@ -2,11 +2,7 @@ package com.bms.business_management_system.models;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -19,10 +15,10 @@ public class Product {
     private BigDecimal price;
     private Integer quantity;
 
-    public Product()
-    {
-        
-    }
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private  Category category;
+
 
     public Long getId() {
         return id;
