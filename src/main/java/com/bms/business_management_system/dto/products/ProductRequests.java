@@ -12,7 +12,7 @@ public class ProductRequests {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @NotNull(message = "Price is required , qplease add it")
+    @NotNull(message = "Price is required , please add it")
     @Positive(message = "Price should be positive. ")
     private BigDecimal price;
 

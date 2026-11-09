@@ -21,6 +21,7 @@ public class CategoryService {
     public CategoryResponse toResponse(Category category)
     {
         CategoryResponse response = new CategoryResponse();
+        response.setId(category.getId());
         response.setName(category.getName());
         response.setDescription(category.getDescription());
 

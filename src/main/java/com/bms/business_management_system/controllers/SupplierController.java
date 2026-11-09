@@ -1,8 +1,11 @@
 package com.bms.business_management_system.controllers;
 
+import com.bms.business_management_system.dto.supplier.SupplierRequests;
+import com.bms.business_management_system.dto.supplier.SupplierResponse;
 import com.bms.business_management_system.models.Supplier;
 import com.bms.business_management_system.services.SupplierService;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,15 +23,16 @@ public class SupplierController {
     }
 
     @GetMapping("/suppliers")
-    public List<Supplier> getAllSupplier()
+    public  ResponseEntity<List<SupplierResponse>> getAllSupplier()
     {
-        return  supplierService.getAllSupplier();
+        List<SupplierResponse> suppliers = supplierService.getAllSupplier();
+        return ResponseEntity.ok().body(suppliers);
     }
 
     @GetMapping("/suppliers/{id}")
-    public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id)
+    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id)
     {
-        Optional<Supplier> supplier = supplierService.getSupplierById(id);
+        Optional<SupplierResponse> supplier = supplierService.getSupplierById(id);
 
         if(supplier.isPresent())
             return  ResponseEntity.ok(supplier.get());
@@ -36,17 +40,17 @@ public class SupplierController {
     }
 
     @PostMapping("/suppliers")
-    public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier supplier)
+    public ResponseEntity<SupplierResponse> createSupplier(@RequestBody @Valid SupplierRequests requests)
     {
-        Supplier savedSupplier = supplierService.createSupplier(supplier);
+        SupplierResponse savedSupplier = supplierService.createSupplier(requests);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSupplier);
     }
 
     @PutMapping("/suppliers/{id}")
-    public Optional<Supplier> updateSupplier(@PathVariable Long id,
+    public Optional<SupplierResponse> updateSupplier(@PathVariable Long id,
                                              @RequestBody Supplier updatedSupplier)
     {
-        Optional<Supplier> supplier = supplierService.updateSupplier(id,updatedSupplier);
+        Optional<SupplierResponse> supplier = supplierService.updateSupplier(id,updatedSupplier);
         if(supplier.isEmpty())
             return Optional.empty();
         return ResponseEntity.ok().body(supplier).getBody();

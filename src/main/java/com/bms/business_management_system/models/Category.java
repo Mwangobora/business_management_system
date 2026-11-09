@@ -12,6 +12,9 @@ public class Category {
     private String name;
     private String description;
 
+    public Category(){
+
+    }
     public Long getId() {
         return id;
     }
