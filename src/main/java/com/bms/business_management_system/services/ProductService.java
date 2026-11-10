@@ -52,16 +52,15 @@ public class ProductService {
 
     public ProductResponse createProduct(ProductRequests request)
     {
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Category not found"));
         Product product = new Product();
         product.setName(request.getName()); 
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity());
-        Product savedProduct = productRepository.save(product);
-
-        Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Category not found"));
         product.setCategory(category);
+        Product savedProduct = productRepository.save(product);
 
         return toResponse(savedProduct);
     }
@@ -73,19 +72,22 @@ public class ProductService {
                 .map(this::toResponse);
     }
 
-    public Optional<ProductResponse> updateProduct(Long id, Product request)
+    public Optional<ProductResponse> updateProduct(Long id, ProductRequests request)
     {
        Optional<Product> product = productRepository.findById(id);
 
-       
        if(product.isEmpty())
           return  Optional.empty();
+
+       Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Category not found"));
         
         Product existingProduct = product.get();
-
         existingProduct.setName(request.getName());
         existingProduct.setPrice(request.getPrice());
         existingProduct.setQuantity(request.getQuantity());
+        existingProduct.setCategory(category);
 
         Product savedProduct = productRepository.save(existingProduct);
 

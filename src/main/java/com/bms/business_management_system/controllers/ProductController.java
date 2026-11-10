@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bms.business_management_system.services.ProductService;
-import com.bms.business_management_system.models.Product;
 
     @RestController 
     @RequestMapping("/api")
@@ -59,7 +58,7 @@ import com.bms.business_management_system.models.Product;
 
         @PutMapping("/products/{id}")
         public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,
-                                                     @RequestBody Product request)
+                                                     @Valid @RequestBody ProductRequests request)
         {
            Optional<ProductResponse> product = productService.updateProduct(id, request);
 
