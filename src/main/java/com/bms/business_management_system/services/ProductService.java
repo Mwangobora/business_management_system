@@ -2,21 +2,28 @@ package com.bms.business_management_system.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.bms.business_management_system.models.Category;
+import com.bms.business_management_system.repositories.CategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.bms.business_management_system.dto.products.ProductRequests;
 import com.bms.business_management_system.dto.products.ProductResponse;
 import com.bms.business_management_system.models.Product;
 import com.bms.business_management_system.repositories.ProductRepository;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service 
 public class ProductService {
     
-    private  final ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
 
-    public ProductService(ProductRepository productRepository) {
+
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public ProductResponse toResponse(Product product)
@@ -26,6 +33,10 @@ public class ProductService {
         response.setName(product.getName());
         response.setPrice(product.getPrice());
         response.setQuantity(product.getQuantity());
+
+        if(product.getCategory() != null){
+            response.setCategoryId(product.getCategory().getId());
+        }
 
         return  response;
     }
@@ -45,8 +56,13 @@ public class ProductService {
         product.setName(request.getName()); 
         product.setPrice(request.getPrice());
         product.setQuantity(request.getQuantity());
-
         Product savedProduct = productRepository.save(product);
+
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Category not found"));
+        product.setCategory(category);
+
         return toResponse(savedProduct);
     }
 
