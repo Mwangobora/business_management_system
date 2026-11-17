@@ -19,8 +19,6 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-
-
     public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
@@ -37,7 +35,6 @@ public class ProductService {
         if(product.getCategory() != null){
             response.setCategoryId(product.getCategory().getId());
         }
-
         return  response;
     }
 
@@ -75,13 +72,12 @@ public class ProductService {
     public Optional<ProductResponse> updateProduct(Long id, ProductRequests request)
     {
        Optional<Product> product = productRepository.findById(id);
-
-       if(product.isEmpty())
-          return  Optional.empty();
-
        Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Category not found"));
+
+       if(product.isEmpty())
+          return  Optional.empty();
         
         Product existingProduct = product.get();
         existingProduct.setName(request.getName());
@@ -102,7 +98,6 @@ public class ProductService {
             productRepository.deleteById(id);
             return true;
         }
-
         return  false;
     }
 }
